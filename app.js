@@ -3,10 +3,8 @@ const app = express();
 const http = require("http");
 
 const socketio = require("socket.io");
-
 const server = http.createServer(app);
-
-socketio(server);
+const io = socketio(server);
 
 app.get("/", function(req, res){
     res.send("Hello world!");
