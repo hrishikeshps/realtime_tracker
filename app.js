@@ -10,11 +10,18 @@ const io = socketio(server);
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
-io.on("connection", function(socket){
+io.on("connection", function (socket) {
     console.log("Connected");
+    socket.on("send-location", function (data) {
+        io.emit("receive-location", { id: socket.id, ...data });
+    })
+
+    socket.on("disconnect", function(){
+        io.emit("user-disconnect", socket.id);
+    })
 })
 
-app.get("/", function(req, res){
+app.get("/", function (req, res) {
     res.render("index");
 })
 
