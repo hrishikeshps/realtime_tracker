@@ -1,8 +1,15 @@
 const express = require('express');
 const app = express();
+const http = require("http");
+
+const socketio = require("socket.io");
+
+const server = http.createServer(app);
+
+socketio(server);
 
 app.get("/", function(req, res){
     res.send("Hello world!");
 })
 
-app.listen(3000);
+server.listen(3000);
